@@ -223,8 +223,8 @@ export default function Dashboard() {
                 key={conv.id}
                 onClick={() => setSelectedId(conv.id)}
                 className={`w-full text-left px-5 py-4 transition-all duration-200 border-l-4 ${isSelected
-                    ? "bg-slate-800/30 border-l-orange-500 shadow-inner"
-                    : "border-l-transparent hover:bg-slate-800/10"
+                  ? "bg-slate-800/30 border-l-orange-500 shadow-inner"
+                  : "border-l-transparent hover:bg-slate-800/10"
                   }`}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -249,8 +249,8 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between mt-2.5">
                   <span
                     className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${conv.mode === "agent"
-                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                        : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                      : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                       }`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${conv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
@@ -276,7 +276,7 @@ export default function Dashboard() {
         ) : (
           <>
             {/* Header */}
-            <div className="sticky top-20 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
+            <div className="sticky top-10 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
               <div className="flex items-center min-w-0">
                 {/* Back button on mobile */}
                 <button
@@ -298,10 +298,10 @@ export default function Dashboard() {
                 onClick={toggleMode}
                 disabled={togglingMode}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${togglingMode
-                    ? "bg-slate-800/50 text-slate-500 border-slate-700 cursor-not-allowed"
-                    : selectedConv.mode === "agent"
-                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
-                      : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
+                  ? "bg-slate-800/50 text-slate-500 border-slate-700 cursor-not-allowed"
+                  : selectedConv.mode === "agent"
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                    : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
                   }`}
               >
                 {togglingMode ? (
@@ -341,8 +341,8 @@ export default function Dashboard() {
                   >
                     <div
                       className={`max-w-[70%] px-4 py-3 rounded-2xl text-sm shadow-md transition-all duration-150 ${isAssistant
-                          ? "bg-gradient-to-r from-orange-600 to-amber-600 text-slate-50 rounded-br-sm"
-                          : "bg-[#12192C] text-slate-100 border border-slate-800/80 rounded-bl-sm"
+                        ? "bg-gradient-to-r from-orange-600 to-amber-600 text-slate-50 rounded-br-sm"
+                        : "bg-[#12192C] text-slate-100 border border-slate-800/80 rounded-bl-sm"
                         }`}
                     >
                       <p className="whitespace-pre-wrap break-words leading-relaxed">{msg.content}</p>
