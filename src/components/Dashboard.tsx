@@ -276,7 +276,7 @@ export default function Dashboard() {
         ) : (
           <>
             {/* Header */}
-            <div className="sticky top-10 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
+            <div className="sticky top-0 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
               <div className="flex items-center min-w-0">
                 {/* Back button on mobile */}
                 <button
