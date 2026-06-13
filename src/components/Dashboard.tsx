@@ -43,6 +43,7 @@ export default function Dashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [togglingMode, setTogglingMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const selectedConv = conversations.find((c) => c.id === selectedId) ?? null;
@@ -150,16 +151,23 @@ export default function Dashboard() {
   }, [fetchConversations]);
 
   async function toggleMode() {
-    if (!selectedConv) return;
+    if (!selectedConv || togglingMode) return;
+    setTogglingMode(true);
     const newMode = selectedConv.mode === "agent" ? "human" : "agent";
-    await fetch(`/api/conversations/${selectedConv.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mode: newMode }),
-    });
-    setConversations((prev) =>
-      prev.map((c) => (c.id === selectedConv.id ? { ...c, mode: newMode } : c))
-    );
+    try {
+      await fetch(`/api/conversations/${selectedConv.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: newMode }),
+      });
+      setConversations((prev) =>
+        prev.map((c) => (c.id === selectedConv.id ? { ...c, mode: newMode } : c))
+      );
+    } catch (err) {
+      console.error("Failed to toggle mode:", err);
+    } finally {
+      setTogglingMode(false);
+    }
   }
 
   async function sendMessage(e: React.FormEvent) {
@@ -292,18 +300,33 @@ export default function Dashboard() {
               </div>
               <button
                 onClick={toggleMode}
+                disabled={togglingMode}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${
-                  selectedConv.mode === "agent"
+                  togglingMode
+                    ? "bg-slate-800/50 text-slate-500 border-slate-700 cursor-not-allowed"
+                    : selectedConv.mode === "agent"
                     ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
                     : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
                 }`}
               >
-                <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${selectedConv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
-                <span className="truncate">
-                  {selectedConv.mode === "agent" ? "AI Agent" : "Human Mode"}
-                  <span className="hidden sm:inline"> Running — Switch</span>
-                  <span className="sm:hidden"> — Switch</span>
-                </span>
+                {togglingMode ? (
+                  <>
+                    <svg className="animate-spin -ml-0.5 mr-1.5 h-3 w-3 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Updating...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${selectedConv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
+                    <span className="truncate">
+                      {selectedConv.mode === "agent" ? "AI Agent" : "Human Mode"}
+                      <span className="hidden sm:inline"> Running — Switch</span>
+                      <span className="sm:hidden"> — Switch</span>
+                    </span>
+                  </>
+                )}
               </button>
             </div>
 
