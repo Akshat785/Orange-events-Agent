@@ -176,7 +176,7 @@ export default function Dashboard() {
     setSending(true);
     const text = input.trim();
     setInput("");
-    
+
     // Optimistic message update to feel lightning fast
     const optimisticMsg: Message = {
       id: `temp-${Date.now()}`,
@@ -199,9 +199,8 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-[#090D1A] text-slate-100 overflow-hidden font-sans">
       {/* Sidebar */}
-      <aside className={`w-full md:w-80 flex-shrink-0 bg-[#12192C] border-r border-slate-800/80 flex flex-col shadow-2xl transition-all duration-300 ${
-        selectedId ? "hidden md:flex" : "flex"
-      }`}>
+      <aside className={`w-full md:w-80 flex-shrink-0 bg-[#12192C] border-r border-slate-800/80 flex flex-col shadow-2xl transition-all duration-300 ${selectedId ? "hidden md:flex" : "flex"
+        }`}>
         <div className="px-5 py-5 border-b border-slate-800/80 bg-[#12192C]">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-orange-500 animate-pulse" />
@@ -223,11 +222,10 @@ export default function Dashboard() {
               <button
                 key={conv.id}
                 onClick={() => setSelectedId(conv.id)}
-                className={`w-full text-left px-5 py-4 transition-all duration-200 border-l-4 ${
-                  isSelected
+                className={`w-full text-left px-5 py-4 transition-all duration-200 border-l-4 ${isSelected
                     ? "bg-slate-800/30 border-l-orange-500 shadow-inner"
                     : "border-l-transparent hover:bg-slate-800/10"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className={`font-semibold text-sm truncate ${isSelected ? "text-orange-400" : "text-slate-200"}`}>
@@ -250,11 +248,10 @@ export default function Dashboard() {
                 )}
                 <div className="flex items-center justify-between mt-2.5">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                      conv.mode === "agent"
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${conv.mode === "agent"
                         ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                         : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                    }`}
+                      }`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${conv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
                     {conv.mode === "agent" ? "AI Agent" : "Human mode"}
@@ -267,9 +264,8 @@ export default function Dashboard() {
       </aside>
 
       {/* Chat panel */}
-      <main className={`flex-1 flex flex-col min-w-0 bg-[#090D1A] transition-all duration-300 ${
-        selectedId ? "flex" : "hidden md:flex"
-      }`}>
+      <main className={`flex-1 flex flex-col min-w-0 bg-[#090D1A] transition-all duration-300 ${selectedId ? "flex" : "hidden md:flex"
+        }`}>
         {!selectedConv ? (
           <div className="flex-1 flex flex-col items-center justify-center text-slate-500 space-y-3">
             <svg className="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +276,7 @@ export default function Dashboard() {
         ) : (
           <>
             {/* Header */}
-            <div className="sticky top-0 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
+            <div className="sticky top-20 z-10 bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
               <div className="flex items-center min-w-0">
                 {/* Back button on mobile */}
                 <button
@@ -301,13 +297,12 @@ export default function Dashboard() {
               <button
                 onClick={toggleMode}
                 disabled={togglingMode}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${
-                  togglingMode
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${togglingMode
                     ? "bg-slate-800/50 text-slate-500 border-slate-700 cursor-not-allowed"
                     : selectedConv.mode === "agent"
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
-                }`}
+                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                      : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
+                  }`}
               >
                 {togglingMode ? (
                   <>
@@ -345,17 +340,15 @@ export default function Dashboard() {
                     className={`flex ${isAssistant ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[70%] px-4 py-3 rounded-2xl text-sm shadow-md transition-all duration-150 ${
-                        isAssistant
+                      className={`max-w-[70%] px-4 py-3 rounded-2xl text-sm shadow-md transition-all duration-150 ${isAssistant
                           ? "bg-gradient-to-r from-orange-600 to-amber-600 text-slate-50 rounded-br-sm"
                           : "bg-[#12192C] text-slate-100 border border-slate-800/80 rounded-bl-sm"
-                      }`}
+                        }`}
                     >
                       <p className="whitespace-pre-wrap break-words leading-relaxed">{msg.content}</p>
                       <div
-                        className={`text-[10px] mt-1.5 font-medium flex items-center justify-end gap-1 ${
-                          isAssistant ? "text-orange-200" : "text-slate-500"
-                        }`}
+                        className={`text-[10px] mt-1.5 font-medium flex items-center justify-end gap-1 ${isAssistant ? "text-orange-200" : "text-slate-500"
+                          }`}
                       >
                         <span>{isAssistant ? "Agent" : "User"}</span>
                         <span>•</span>
