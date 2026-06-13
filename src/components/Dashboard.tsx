@@ -191,7 +191,9 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-[#090D1A] text-slate-100 overflow-hidden font-sans">
       {/* Sidebar */}
-      <aside className="w-80 flex-shrink-0 bg-[#12192C] border-r border-slate-800/80 flex flex-col shadow-2xl">
+      <aside className={`w-full md:w-80 flex-shrink-0 bg-[#12192C] border-r border-slate-800/80 flex flex-col shadow-2xl transition-all duration-300 ${
+        selectedId ? "hidden md:flex" : "flex"
+      }`}>
         <div className="px-5 py-5 border-b border-slate-800/80 bg-[#12192C]">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-orange-500 animate-pulse" />
@@ -257,7 +259,9 @@ export default function Dashboard() {
       </aside>
 
       {/* Chat panel */}
-      <main className="flex-1 flex flex-col min-w-0 bg-[#090D1A]">
+      <main className={`flex-1 flex flex-col min-w-0 bg-[#090D1A] transition-all duration-300 ${
+        selectedId ? "flex" : "hidden md:flex"
+      }`}>
         {!selectedConv ? (
           <div className="flex-1 flex flex-col items-center justify-center text-slate-500 space-y-3">
             <svg className="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -268,23 +272,38 @@ export default function Dashboard() {
         ) : (
           <>
             {/* Header */}
-            <div className="bg-[#12192C] border-b border-slate-800/80 px-6 py-4 flex items-center justify-between shadow-md">
-              <div>
-                <h2 className="font-bold text-slate-100 text-base">
-                  {selectedConv.name ?? selectedConv.phone}
-                </h2>
-                <p className="text-xs text-slate-400 mt-0.5 font-mono">{selectedConv.phone}</p>
+            <div className="bg-[#12192C] border-b border-slate-800/80 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between shadow-md">
+              <div className="flex items-center min-w-0">
+                {/* Back button on mobile */}
+                <button
+                  onClick={() => setSelectedId(null)}
+                  className="md:hidden mr-3 p-1 text-slate-400 hover:text-slate-100 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </button>
+                <div className="min-w-0">
+                  <h2 className="font-bold text-slate-100 text-sm sm:text-base truncate">
+                    {selectedConv.name ?? selectedConv.phone}
+                  </h2>
+                  <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 font-mono truncate">{selectedConv.phone}</p>
+                </div>
               </div>
               <button
                 onClick={toggleMode}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm border ${
                   selectedConv.mode === "agent"
                     ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
                     : "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20"
                 }`}
               >
-                <span className={`w-2 h-2 rounded-full ${selectedConv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
-                {selectedConv.mode === "agent" ? "AI Agent Running" : "Human Answering"} — Switch
+                <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${selectedConv.mode === "agent" ? "bg-emerald-400" : "bg-amber-400"}`} />
+                <span className="truncate">
+                  {selectedConv.mode === "agent" ? "AI Agent" : "Human Mode"}
+                  <span className="hidden sm:inline"> Running — Switch</span>
+                  <span className="sm:hidden"> — Switch</span>
+                </span>
               </button>
             </div>
 
