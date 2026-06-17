@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { sendWhatsAppMessage } from "@/lib/whatsapp";
 import { getOpenRouter, AI_MODEL } from "@/lib/openrouter";
@@ -88,8 +88,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Run processing asynchronously in the background so we return 200 OK instantly to Meta
-    processAsync(phone, text, whatsappMsgId, contactName).catch((err) => {
-      console.error("Async webhook error:", err);
+    after(async () => {
+      await processAsync(phone, text, whatsappMsgId, contactName).catch((err) => {
+        console.error("Async webhook error:", err);
+      });
     });
 
     return NextResponse.json({ status: "ok" });
